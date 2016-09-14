@@ -26,6 +26,14 @@
                         $scope.contacts.push({name:u.firstName + ' ' + u.lastName});
                         $scope.modal.hide();
                     }
+
+                    $scope.openModal = function(){
+                        $scope.modal.show();
+                    }
+
+                    $scope.closeModal = function(){
+                        $scope.modal.hide();
+                    }
                 });
     </script>
 </head>
@@ -34,7 +42,7 @@
     <ion-header-bar align-title="center" class="bar-positive">
         <h1 class="title">Contacts</h1>
         <div class="buttons">
-            <button class="button button-icon ion-compose" ng-click="modal.show()">
+            <button class="button button-icon ion-compose" ng-click="openModal()">
             </button>
         </div>
     </ion-header-bar>
@@ -50,7 +58,7 @@
         <ion-modal-view>
             <ion-header-bar align-title="center" class="bar-positive">
                 <h1 class="title">New Contact</h1>
-                <button class="button button-clear button-primary" ng-click="modal.hide();">Cancel</button>
+                <button class="button button-clear button-primary" ng-click="closeModal()">Cancel</button>
             </ion-header-bar>
             <ion-content class="padding">
                 <div class="list">
