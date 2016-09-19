@@ -89,7 +89,9 @@
 			Tools.removeEvent (hsv_map, 'touchmove', hsvMove);
 			hsv_map.className = '';		
 			stopRender();
-			console.log(window.myColor.colors.HEX);
+			var selColor = window.myColor.colors.HEX;
+			console.log(selColor);
+			document.getElementById('img').style.backgroundColor='#'+selColor;
 		});
 	
 	// generic function for drawing a canvas disc
@@ -162,13 +164,13 @@
 		);
 		// draw the luminanceBar bar
 		var ctx = luminanceBar.getContext("2d"),
-			gradient = ctx.createLinearGradient(0, 0, 0, 100);
+			gradient = ctx.createLinearGradient(0, 0, 0, 150);
 
 		gradient.addColorStop(0,"transparent");
 		gradient.addColorStop(1,"black");
 
 		ctx.fillStyle = gradient;
-		ctx.fillRect(0, 0, 30, 100);
+		ctx.fillRect(0, 0, 30, 150);
 	}
 
 
