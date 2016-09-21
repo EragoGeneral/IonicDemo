@@ -1,0 +1,85 @@
+<html lang="en" ng-app="mySuperApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>ionic demo</title>
+    <link href="../../css/ionic.min.css" rel="stylesheet">
+    <script src="../../js/ionic.bundle.min.js"></script>
+
+    <script type="text/javascript">
+        angular.module('mySuperApp', ['ionic'])
+                .controller('PopupCtrl', function($scope, $ionicPopup, $timeout){
+
+                    $scope.showPopup = function(){
+                        $scope.data={};
+                        var myPopup = $ionicPopup.show({
+                            template: '<input type="password" ng-model="data.wifi">',
+                            title: 'Enter Wi-Fi Password',
+                            subTitle: 'Please use normal things',
+                            scope: $scope,
+                            buttons:[{text:'Cancel'},
+                                {
+                                    text:'<b>Save</b>',
+                                    type:'button-positive',
+                                    onTap : function(res){
+                                        if (!$scope.data.wifi) {
+                                            // 不允许用户关闭，除非输入 wifi 密码
+                                            e.preventDefault();
+                                        } else {
+                                            return $scope.data.wifi;
+                                        }
+                                    }
+                                }]
+                        });
+                        myPopup.then(function(res) {
+                            console.log('Tapped!', res);
+                        });
+                        $timeout(function() {
+                            myPopup.close(); // 3秒后关闭弹窗
+                        }, 3000);
+                    };
+
+
+                    $scope.showConfirm = function(){
+                        var confirmPopup = $ionicPopup.confirm({
+                            title : 'Consume Ice Cream',
+                            template : 'Are you sure you want to eat this ice cream?'
+                        });
+                        confirmPopup.then(function (res) {
+                            if(res){
+                                console.log('You are sure');
+                            }else{
+                                console.log('You are not sure');
+                            }
+                        })
+                    }
+
+                    $scope.showAlert = function(){
+                        var alertPopup = $ionicPopup.alert({
+                            title:'Don\' eat that',
+                            template : 'It might taste good'
+                        });
+                        alertPopup.then(function(res){
+                            console.log('Thank you for not eating my delicious ice cream cone');
+                        });
+                    }
+                });
+    </script>
+
+</head>
+<body class="padding" ng-controller="PopupCtrl">
+    <button class="button button-balanced" ng-click="showPopup();">
+        弹窗显示
+    </button>
+    <button class="button button-primary" ng-click="showConfirm();">
+        确认对话框
+    </button>
+    <button class="button button-positive" ng-click="showAlert();">
+        警告框
+    </button>
+
+    <script id="popup-template.html" type="text/ng-template">
+        <input ng-model="data.wifi" type="text" placeholder="password">
+    </script>
+</body>
+</html>
